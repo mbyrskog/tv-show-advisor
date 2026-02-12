@@ -21,8 +21,8 @@ Search for shows, explore recommendations and view ratings powered by The Movie 
 
 ## 🛠 Run locally
 
-- npm install
-- Create a file in the project root named .env.local
+- `npm install`
+- Create a file in the root named .env.local
 - Add your TMDB API key in the .env.local file: VITE_API_KEY_PARAM=your_api_key_here
 - You can get an API key from: https://www.themoviedb.org/settings/api
-- npm run start
+- `npm run start`
