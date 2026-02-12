@@ -84,11 +84,7 @@ export const App = () => {
       <Container>
         <Grid container spacing={2} alignItems="center">
           <Grid size={{ xs: 12, sm: 3 }}>
-            <Logo
-              title="What to watch"
-              subtitle="Find a show you may like"
-              image={logoImg}
-            />
+            <Logo title="What to watch" image={logoImg} />
           </Grid>
           <Grid size={{ xs: 12, sm: 8 }} sx={{ display: "flex", flexGrow: 1 }}>
             <SearchBar onSubmit={fetchByTitle} />

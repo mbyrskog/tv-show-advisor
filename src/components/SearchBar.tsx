@@ -21,37 +21,60 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        width: "100%",
+        display: "flex",
+        gap: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Input
         inputRef={inputRef}
-        id="searchBar"
         type="search"
         autoComplete="off"
         fullWidth
         disableUnderline
-        placeholder={value ? "" : "Find a TV show you may like"}
+        placeholder="Find a TV show you may like"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         inputProps={{
-          style: {
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: "18px",
-            color: "white",
-          },
+          enterKeyHint: "search",
         }}
         sx={{
           maxWidth: "500px",
-          borderRadius: 10,
+          borderRadius: 5,
           backgroundColor: "rgba(255, 255, 255, 0.2)",
           backdropFilter: "blur(5px)",
           color: "white",
           padding: 2,
+          "& input": {
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "18px",
+          },
           "& input:focus::placeholder": {
             opacity: 0,
           },
         }}
       />
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={value.trim().length === 0}
+        sx={{
+          height: "56px",
+          borderRadius: 5,
+          textTransform: "none",
+          width: { xs: "100%", sm: "auto" },
+        }}
+      >
+        Search
+      </Button>
     </Box>
   );
 };
