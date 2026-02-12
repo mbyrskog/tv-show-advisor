@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TVShowService } from "./services/tvShowService";
 import { VITE_BACKDROP_BASE_URL } from "./config/config";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, CircularProgress, Container, Grid } from "@mui/material";
 import { Logo } from "./components/Logo";
 import { SearchBar } from "./components/SearchBar";
 import { TVShowDetail } from "./components/TVShowDetail";
@@ -11,7 +11,12 @@ import { TVShow } from "./types/tvShow";
 
 export const App = () => {
   const [currentTVShow, setCurrentTVShow] = useState<TVShow | null>(null);
-  const [recommendationList, setRecommendationList] = useState<TVShow[]>([]);
+  const [tvShowList, setTvShowList] = useState<TVShow[]>([]);
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  const backgroundStyle = currentTVShow
+    ? `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("${VITE_BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover`
+    : "black";
 
   const fetchPopular = async (): Promise<void> => {
     try {
@@ -22,6 +27,8 @@ export const App = () => {
     } catch (error) {
       console.error(error);
       alert("Something went wrong when fetching the popular TV shows");
+    } finally {
+      setInitialLoading(false);
     }
   };
 
@@ -29,11 +36,10 @@ export const App = () => {
     try {
       const recommendationListResp =
         await TVShowService.fetchRecommendations(tvShowId);
-      if (recommendationListResp.length > 0) {
-        setRecommendationList(recommendationListResp.slice(0, 10));
-      }
+      setTvShowList(recommendationListResp.slice(0, 10));
     } catch (error) {
       console.error(error);
+      setTvShowList([]);
       alert("Something went wrong fetching the recommendations");
     }
   };
@@ -59,10 +65,10 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    if (currentTVShow) {
+    if (!initialLoading && currentTVShow) {
       fetchRecommendations(currentTVShow.id);
     }
-  }, [currentTVShow]);
+  }, [currentTVShow, initialLoading]);
 
   return (
     <Box
@@ -70,14 +76,11 @@ export const App = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        background: currentTVShow
-          ? `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("${VITE_BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover`
-          : "black",
+        background: backgroundStyle,
         color: "white",
         p: 2,
       }}
     >
-      {/* Header */}
       <Container>
         <Grid container spacing={2} alignItems="center">
           <Grid size={{ xs: 12, sm: 3 }}>
@@ -87,25 +90,25 @@ export const App = () => {
               image={logoImg}
             />
           </Grid>
-
-          {/* Search bar */}
           <Grid size={{ xs: 12, sm: 8 }} sx={{ display: "flex", flexGrow: 1 }}>
             <SearchBar onSubmit={fetchByTitle} />
           </Grid>
         </Grid>
       </Container>
-
-      {/* TV Show Details */}
       <Container sx={{ flexGrow: 1 }}>
-        {currentTVShow && <TVShowDetail tvShow={currentTVShow} />}
+        {initialLoading ? (
+          <Box sx={{ display: "grid", placeItems: "center", mt: 6 }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          currentTVShow && <TVShowDetail tvShow={currentTVShow} />
+        )}
       </Container>
-
-      {/* Recommended Shows */}
       <Container>
         {currentTVShow && (
           <TVShowList
             onClickItem={updateCurrentTVShow}
-            tvShowList={recommendationList}
+            tvShowList={tvShowList}
           />
         )}
       </Container>
