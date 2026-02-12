@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Input } from "@mui/material";
+import { Box, Input, Button } from "@mui/material";
 
 interface SearchBarProps {
   onSubmit: (query: string) => void;
@@ -7,20 +7,21 @@ interface SearchBarProps {
 
 export const SearchBar = ({ onSubmit }: SearchBarProps) => {
   const [value, setValue] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!value.trim()) return;
 
-    onSubmit(value.trim());
+    const trimmed = value.trim();
+    if (!trimmed) return;
+
+    onSubmit(trimmed);
     setValue("");
     inputRef.current?.blur();
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
       <Input
         inputRef={inputRef}
         id="searchBar"
@@ -28,11 +29,9 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
         autoComplete="off"
         fullWidth
         disableUnderline
-        placeholder={isFocused ? "" : "Find a TV show you may like"}
+        placeholder={value ? "" : "Find a TV show you may like"}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         inputProps={{
           style: {
             textAlign: "center",
@@ -48,8 +47,11 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
           backdropFilter: "blur(5px)",
           color: "white",
           padding: 2,
+          "& input:focus::placeholder": {
+            opacity: 0,
+          },
         }}
       />
-    </form>
+    </Box>
   );
 };

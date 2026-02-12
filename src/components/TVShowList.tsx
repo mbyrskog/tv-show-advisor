@@ -8,11 +8,14 @@ interface TVShowListProps {
 }
 
 export const TVShowList = ({ tvShowList, onClickItem }: TVShowListProps) => {
+  if (tvShowList.length === 0) {
+    return null;
+  }
   return (
     <>
       <Box>
         <Typography variant="h5" fontWeight="bold" gutterBottom>
-          You will probably like:
+          Recommendations:
         </Typography>
       </Box>
       <Box
@@ -22,7 +25,6 @@ export const TVShowList = ({ tvShowList, onClickItem }: TVShowListProps) => {
           whiteSpace: "nowrap",
         }}
       >
-        {/* Scrollable TV Show List */}
         <Box sx={{ display: "inline-flex", gap: 2, mb: 2 }}>
           {tvShowList.map((tvShow) => (
             <TVShowListItem
