@@ -14,7 +14,7 @@ export const Logo = ({ image, title }: LogoProps) => {
         alt={`${title} logo`}
         sx={{ width: 50, height: 50 }}
       />
-      <Typography variant="h5" fontWeight="bold">
+      <Typography component="h1" variant="h5" sx={{ fontWeight: "bold" }}>
         {title}
       </Typography>
     </Box>
