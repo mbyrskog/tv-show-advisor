@@ -11,10 +11,10 @@ export const TVShowDetail = ({ tvShow }: TVShowDetailProps) => {
 
   return (
     <Box sx={{ mx: "auto", mt: 4 }}>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
+      <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
         {tvShow.name}
       </Typography>
-      <Stack direction="row" spacing={1} mb={2}>
+      <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
         <FiveStarRating rating={rating} />
         <Typography variant="body1" color="text.secondary">
           {rating.toFixed(1)}/5

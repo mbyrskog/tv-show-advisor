@@ -44,6 +44,7 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
         onChange={(e) => setValue(e.target.value)}
         inputProps={{
           enterKeyHint: "search",
+          "aria-label": "Search TV shows",
         }}
         sx={{
           maxWidth: "500px",

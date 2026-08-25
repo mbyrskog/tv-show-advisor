@@ -14,7 +14,7 @@ export const TVShowList = ({ tvShowList, onClickItem }: TVShowListProps) => {
   return (
     <>
       <Box>
-        <Typography variant="h5" fontWeight="bold" gutterBottom>
+        <Typography variant="h5" sx={{ fontWeight: "bold" }} gutterBottom>
           Recommendations:
         </Typography>
       </Box>

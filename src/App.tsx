@@ -82,7 +82,7 @@ export const App = () => {
       }}
     >
       <Container>
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={2} sx={{ alignItems: "center" }}>
           <Grid size={{ xs: 12, sm: 3 }}>
             <Logo title="What to watch" image={logoImg} />
           </Grid>
