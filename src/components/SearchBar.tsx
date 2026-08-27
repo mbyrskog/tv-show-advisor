@@ -30,10 +30,12 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
         gap: 1,
         justifyContent: "center",
         alignItems: "center",
-        flexWrap: "wrap",
+        flexDirection: { xs: "column", sm: "row" },
       }}
     >
       <Input
+        id="tv-show-search"
+        name="tv-show-search"
         inputRef={inputRef}
         type="search"
         autoComplete="off"
@@ -66,11 +68,13 @@ export const SearchBar = ({ onSubmit }: SearchBarProps) => {
       <Button
         type="submit"
         variant="contained"
-        disabled={value.trim().length === 0}
+        disabled={!value.trim()}
         sx={{
-          height: "56px",
-          borderRadius: 5,
+          height: 56,
+          px: 3,
+          borderRadius: 3,
           textTransform: "none",
+          fontWeight: 700,
           width: { xs: "100%", sm: "auto" },
         }}
       >

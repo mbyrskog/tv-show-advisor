@@ -10,7 +10,7 @@ Search for shows, explore recommendations and view ratings powered by The Movie 
 - Vite
 - MUI (Material UI)
 - Axios
-- Functional components + hooks
+- React Toastify
 
 ## 🎮 Features
 

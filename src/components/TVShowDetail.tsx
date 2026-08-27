@@ -21,7 +21,7 @@ export const TVShowDetail = ({ tvShow }: TVShowDetailProps) => {
         </Typography>
       </Stack>
       <Typography variant="body1" color="text.secondary">
-        {tvShow.overview}
+        {tvShow.overview || "No overview available."}
       </Typography>
     </Box>
   );
