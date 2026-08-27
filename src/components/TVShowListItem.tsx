@@ -26,6 +26,7 @@ export const TVShowListItem = ({ tvShow, onClick }: TVShowListItemProps) => {
           height="140"
           image={imageUrl}
           alt={tvShow.name}
+          loading="lazy"
         />
         <CardContent>
           <Typography variant="subtitle1" noWrap>
