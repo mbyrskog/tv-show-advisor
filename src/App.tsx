@@ -8,13 +8,14 @@ import { TVShowDetail } from "./components/TVShowDetail";
 import { TVShowList } from "./components/TVShowList";
 import logoImg from "./assets/logo.png";
 import { TVShow } from "./types/tvShow";
+import { ToastContainer, toast } from "react-toastify";
 
 export const App = () => {
   const [currentTVShow, setCurrentTVShow] = useState<TVShow | null>(null);
   const [tvShowList, setTvShowList] = useState<TVShow[]>([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
-  const backgroundStyle = currentTVShow
+  const backgroundStyle = currentTVShow?.backdrop_path
     ? `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("${VITE_BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover`
     : "black";
 
@@ -26,7 +27,7 @@ export const App = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong when fetching the popular TV shows");
+      toast.error("Something went wrong when fetching the popular TV shows");
     } finally {
       setInitialLoading(false);
     }
@@ -40,7 +41,7 @@ export const App = () => {
     } catch (error) {
       console.error(error);
       setTvShowList([]);
-      alert("Something went wrong fetching the recommendations");
+      toast.error("Something went wrong fetching the recommendations");
     }
   };
 
@@ -53,10 +54,12 @@ export const App = () => {
       const searchResponse = await TVShowService.fetchByTitle(title);
       if (searchResponse.length > 0) {
         setCurrentTVShow(searchResponse[0]);
+      } else {
+        toast.warn(`No TV show found for "${title}"`);
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong searching for a TV show");
+      toast.error("Something went wrong searching for a TV show");
     }
   };
 
@@ -108,6 +111,13 @@ export const App = () => {
           />
         )}
       </Container>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        theme="dark"
+        closeOnClick
+      />
     </Box>
   );
 };

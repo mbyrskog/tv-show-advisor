@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { VITE_SMALL_IMG_COVER_BASE_URL } from "../config/config";
 import { TVShow } from "../types/tvShow";
+import fallbackImg from "../assets/tv.png";
 
 interface TVShowListItemProps {
   tvShow: TVShow;
@@ -16,7 +17,7 @@ interface TVShowListItemProps {
 export const TVShowListItem = ({ tvShow, onClick }: TVShowListItemProps) => {
   const imageUrl = tvShow.backdrop_path
     ? VITE_SMALL_IMG_COVER_BASE_URL + tvShow.backdrop_path
-    : undefined;
+    : fallbackImg;
   return (
     <Card sx={{ width: 250, borderRadius: 2, boxShadow: 3 }}>
       <CardActionArea onClick={() => onClick(tvShow)}>
@@ -25,6 +26,7 @@ export const TVShowListItem = ({ tvShow, onClick }: TVShowListItemProps) => {
           height="140"
           image={imageUrl}
           alt={tvShow.name}
+          loading="lazy"
         />
         <CardContent>
           <Typography variant="subtitle1" noWrap>
