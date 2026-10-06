@@ -6,9 +6,9 @@ import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 
 export default [
-    {
-      ignores: ["dist/**"],
-    },
+  {
+    ignores: ["dist/**"],
+  },
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx,js,jsx}"],
@@ -39,7 +39,7 @@ export default [
       "react-hooks/set-state-in-effect": "off",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-      "no-undef": "off"
+      "no-undef": "off",
     },
   },
 ];

@@ -7,20 +7,29 @@ interface TVShowDetailProps {
 }
 
 export const TVShowDetail = ({ tvShow }: TVShowDetailProps) => {
+  const hasRating = tvShow.vote_average > 0;
   const rating = tvShow.vote_average / 2;
 
   return (
-    <Box sx={{ mx: "auto", mt: 4 }}>
+    <Box sx={{ mx: "auto", mt: 4, textShadow: "0 1px 4px rgba(0, 0, 0, 0.8)" }}>
       <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
         {tvShow.name}
       </Typography>
       <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-        <FiveStarRating rating={rating} />
-        <Typography variant="body1" color="text.secondary">
-          {rating.toFixed(1)}/5
-        </Typography>
+        {hasRating ? (
+          <>
+            <FiveStarRating rating={rating} />
+            <Typography variant="body1" color="text.secondary">
+              {rating.toFixed(1)}/5
+            </Typography>
+          </>
+        ) : (
+          <Typography variant="body1" color="text.secondary">
+            No rating yet
+          </Typography>
+        )}
       </Stack>
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant="body1" sx={{ color: "grey.300" }}>
         {tvShow.overview || "No overview available."}
       </Typography>
     </Box>
