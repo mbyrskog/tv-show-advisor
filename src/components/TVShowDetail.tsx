@@ -11,7 +11,7 @@ export const TVShowDetail = ({ tvShow }: TVShowDetailProps) => {
   const rating = tvShow.vote_average / 2;
 
   return (
-    <Box sx={{ mx: "auto", mt: 4 }}>
+    <Box sx={{ mx: "auto", mt: 4, textShadow: "0 1px 4px rgba(0, 0, 0, 0.8)" }}>
       <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
         {tvShow.name}
       </Typography>
@@ -29,7 +29,7 @@ export const TVShowDetail = ({ tvShow }: TVShowDetailProps) => {
           </Typography>
         )}
       </Stack>
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant="body1" sx={{ color: "grey.300" }}>
         {tvShow.overview || "No overview available."}
       </Typography>
     </Box>

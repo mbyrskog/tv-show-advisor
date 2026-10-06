@@ -14,6 +14,7 @@ import { TVShowList } from "./components/TVShowList";
 import logoImg from "./assets/logo.png";
 import { ToastContainer } from "react-toastify";
 import { useTVShows } from "./hooks/useTVShows";
+import { TVShow } from "./types/tvShow";
 
 export const App = () => {
   const {
@@ -29,6 +30,11 @@ export const App = () => {
   const backgroundStyle = currentTVShow?.backdrop_path
     ? `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("${VITE_BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover`
     : "black";
+
+  const handleSelectTVShow = (tvShow: TVShow): void => {
+    selectTVShow(tvShow);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <Box
@@ -71,7 +77,10 @@ export const App = () => {
       </Container>
       <Container>
         {currentTVShow && (
-          <TVShowList onClickItem={selectTVShow} tvShowList={recommendations} />
+          <TVShowList
+            onClickItem={handleSelectTVShow}
+            tvShowList={recommendations}
+          />
         )}
       </Container>
 
