@@ -9,23 +9,23 @@ const api = axios.create({
   },
 });
 
-export class TVShowService {
-  static async fetchPopular(): Promise<TVShow[]> {
-    const response = await api.get<{ results: TVShow[] }>("tv/popular");
-    return response.data.results;
-  }
+export const fetchPopular = async (): Promise<TVShow[]> => {
+  const response = await api.get<{ results: TVShow[] }>("tv/popular");
+  return response.data.results;
+};
 
-  static async fetchRecommendations(tvShowId: number): Promise<TVShow[]> {
-    const response = await api.get<{ results: TVShow[] }>(
-      `tv/${tvShowId}/recommendations`,
-    );
-    return response.data.results;
-  }
+export const fetchRecommendations = async (
+  tvShowId: number,
+): Promise<TVShow[]> => {
+  const response = await api.get<{ results: TVShow[] }>(
+    `tv/${tvShowId}/recommendations`,
+  );
+  return response.data.results;
+};
 
-  static async fetchByTitle(title: string): Promise<TVShow[]> {
-    const response = await api.get<{ results: TVShow[] }>("search/tv", {
-      params: { query: title },
-    });
-    return response.data.results;
-  }
-}
+export const fetchByTitle = async (title: string): Promise<TVShow[]> => {
+  const response = await api.get<{ results: TVShow[] }>("search/tv", {
+    params: { query: title },
+  });
+  return response.data.results;
+};
